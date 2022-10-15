@@ -27,13 +27,14 @@ public class Immortal : Player
 
     private void FixedUpdate()
     {
-        stateMachine.currState.OnStateFixedUpdate(); 
+        stateMachine.currState.OnStateFixedUpdate();
         Debug.Log(currState);
     }
 
     private void Update()
     {
         stateMachine.currState.OnStateUpdate();
+        CeilingCheck();
         anim.SetFloat("vertical", rb.velocity.y);
     }
 

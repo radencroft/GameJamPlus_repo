@@ -10,13 +10,21 @@ public class Player : MonoBehaviour
     [HideInInspector] public SpriteRenderer sr;
     [HideInInspector] public InputManager inputManager;
     [HideInInspector] public bool facingRight;
+    [HideInInspector] public bool ceilingDetected;
 
     public string currState;
 
     [Header("MOVE STATS")]
     public float ST;
-    public float jumpForce;
     public float gravity;
+
+    [Header("JUMP")]
+    public float jumpHeight;
+    public float jumpSpeedUP, jumpSpeedDOWN;
+    public float ceilingDistanceFromHead;
+    public LayerMask whatIsCeiling;
+
+
 
     public void GenericMove()
     {
@@ -36,4 +44,10 @@ public class Player : MonoBehaviour
             transform.localScale = theScale;
         }
     }
+
+    protected void CeilingCheck()   // check if player can jump.
+    {
+        ceilingDetected = Physics2D.Raycast(col.bounds.center, Vector2.up, ceilingDistanceFromHead, whatIsCeiling);
+        Debug.DrawRay(col.bounds.center, Vector2.up *  ceilingDistanceFromHead, Color.yellow);  // draw line for ceiling check in Scene View.
+    } 
 }
