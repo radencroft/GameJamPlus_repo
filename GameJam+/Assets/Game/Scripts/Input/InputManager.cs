@@ -9,10 +9,14 @@ public class InputManager : Singleton<InputManager>
 
     public delegate void JumpPress();
     public event JumpPress OnJumpPress;
-
-
+     
     public delegate void AttackPress();
     public event AttackPress OnAttackPress;
+
+    public delegate void DashPress();
+    public event DashPress OnDashPress;
+
+
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -34,6 +38,7 @@ public class InputManager : Singleton<InputManager>
     {
         playerControls.Keyboard.Jump.performed += ctx => Jump_performed(ctx);
         playerControls.Keyboard.Attack.performed += ctx => Attack_performed(ctx);
+        playerControls.Keyboard.Dash.performed += ctx => Dash_performed(ctx);
     }
 
     public Vector2 GetMoveVector()
@@ -53,6 +58,13 @@ public class InputManager : Singleton<InputManager>
         if (OnAttackPress != null)
         {
             OnAttackPress();
+        }
+    }
+    private void Dash_performed(InputAction.CallbackContext context)
+    {
+        if (OnDashPress != null)
+        {
+            OnDashPress();
         }
     }
 }

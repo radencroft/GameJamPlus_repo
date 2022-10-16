@@ -2,28 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGroundedState : PlayerState
+public class PlayerDashState : PlayerState
 {
-    public PlayerGroundedState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) { }
+    public PlayerDashState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine) { }
+    private Vector2 dir;
+    private float timer;
 
     public override void OnStateEnter()
     {
         base.OnStateEnter();
-        player.currState = "Grounded";
+        player.currState = "Dash";
         player.inputManager.OnJumpPress += Jump;
         player.inputManager.OnAttackPress += Attack;
-        player.inputManager.OnDashPress += Dash;
+        dir = player.inputManager.GetMoveVector();
+        timer = player.dashTime;
     }
 
     public override void OnStateFixedUpdate()
     {
-        base.OnStateFixedUpdate();
-        player.GenericMove();
-        player.GenericFlip();
+        base.OnStateFixedUpdate();  
+        player.anim.SetFloat("speed", Mathf.Abs(dir.x) + Mathf.Abs(dir.y));
+        player.rb.velocity = dir * player.dashSpeed * Time.deltaTime; 
     }
     public override void OnStateUpdate()
     {
-        base.OnStateUpdate(); 
+        base.OnStateUpdate();
+        timer -= Time.deltaTime;
+
+        if (timer <= 0)
+        {
+            stateMachine.ChangeState(new PlayerGroundedState(player, stateMachine));
+        }
     }
 
     public override void OnStateExit()
@@ -37,18 +46,14 @@ public class PlayerGroundedState : PlayerState
     #region FUNCTIONS
     private void Jump()
     {
-        if(!player.ceilingDetected)
+        if (!player.ceilingDetected)
         {
             stateMachine.ChangeState(new PlayerJumpState(player, stateMachine));
         }
     }
     private void Attack()
-    { 
-        Instantiate(player.bullet, player.firePos.position, player.transform.rotation);
-    }
-    private void Dash()
     {
-        stateMachine.ChangeState(new PlayerDashState(player, stateMachine));
-    }
+        Instantiate(player.bullet, player.firePos.position, player.transform.rotation);
+    } 
     #endregion
 }

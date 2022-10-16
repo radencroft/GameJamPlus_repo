@@ -28,6 +28,9 @@ public class Player : MonoBehaviour
     public GameObject bullet;
     public Transform firePos;
 
+    [Header("DASH")]
+    public float dashSpeed;
+    public float dashTime;
 
     public void GenericMove()
     {
