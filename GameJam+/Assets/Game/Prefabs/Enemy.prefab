@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 5
+  DamageToPlayer: 1
 --- !u!70 &2978163635593502291
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

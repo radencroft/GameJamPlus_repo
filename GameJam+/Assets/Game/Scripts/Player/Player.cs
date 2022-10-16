@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public InputManager inputManager;
     [HideInInspector] public bool facingRight;
     [HideInInspector] public bool ceilingDetected;
+    [HideInInspector] public AudioManager audioManager;
+    [HideInInspector] public AudioSource runningSound;
 
     public string currState;
 
@@ -32,12 +35,17 @@ public class Player : MonoBehaviour
     public float dashSpeed;
     public float dashTime;
 
+    [Header("HEALTH")]
+    public int HP;
+    public int health;
+    public TMP_Text healthUI;
+
     public void GenericMove()
     {
         float speed = ST;
         Vector2 dir = inputManager.GetMoveVector();
         anim.SetFloat("speed", Mathf.Abs(dir.x) + Mathf.Abs(dir.y));
-        rb.velocity = dir * speed * Time.deltaTime;
+        rb.velocity = dir * speed * Time.deltaTime; 
     }
 
     public void GenericFlip()

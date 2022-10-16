@@ -14,13 +14,18 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private int EnemyNum;
     public int N;
     private float t;
-    [SerializeField] private TMP_Text CounterUI;
+    [SerializeField] private TMP_Text AgeCounter;
+    [SerializeField] private TMP_Text YearCounter;
+    [SerializeField] private int startYear;
+    [SerializeField] private int gapBtwYears;
+    private int year;
     private int killCount;
 
     private void Start()
     {  
         t = 0f;
         killCount = 0;
+        year = startYear;
     }
     private void FixedUpdate()
     {
@@ -30,13 +35,15 @@ public class SpawnManager : MonoBehaviour
             if (e == null)
             {
                 enemiesOnScreen.Remove(e);
-                killCount++;
+                killCount += gapBtwYears;
+                year += gapBtwYears;
             }
         }
     }
     private void Update()
     {
-        CounterUI.text = killCount.ToString();
+        AgeCounter.text = killCount.ToString();
+        YearCounter.text = year.ToString();
 
         if (enemiesOnScreen.Count < EnemyNum)
         {
@@ -58,5 +65,14 @@ public class SpawnManager : MonoBehaviour
         GameObject e = Instantiate(enemy, spawnPos.position, Quaternion.identity);
         e.GetComponent<AIDestinationSetter>().target = GameObject.FindGameObjectWithTag("Player").transform;
         enemiesOnScreen.Add(e);
+    }
+
+    public void KillAllEnemies()
+    {
+        foreach (var e in enemiesOnScreen)
+        {
+            Destroy(e);
+            enemiesOnScreen.Remove(e);
+        }
     }
 }

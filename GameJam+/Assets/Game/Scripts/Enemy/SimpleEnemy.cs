@@ -6,6 +6,7 @@ public class SimpleEnemy : MonoBehaviour
 {
     private int hit;
     [SerializeField] private int HP;
+    [SerializeField] private int DamageToPlayer;
 
     private void Start()
     {
@@ -24,6 +25,12 @@ public class SimpleEnemy : MonoBehaviour
             {
                 hit++;
             }
-        } 
+        }
+
+        if (other.gameObject.tag == "Player")
+        {
+            other.GetComponent<Immortal>().health -= DamageToPlayer;
+        }
     }
+
 }
