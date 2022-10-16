@@ -24,6 +24,9 @@ public class Player : MonoBehaviour
     public float ceilingDistanceFromHead;
     public LayerMask whatIsCeiling;
 
+    [Header("ATTACK")]
+    public GameObject bullet;
+    public Transform firePos;
 
 
     public void GenericMove()

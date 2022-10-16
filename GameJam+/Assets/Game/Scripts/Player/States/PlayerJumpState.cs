@@ -12,10 +12,13 @@ public class PlayerJumpState : PlayerState
     {
         base.OnStateEnter();
         player.currState = "Jumping";
+
+        player.anim.SetBool("jumping",true);
         jumpMin = player.transform.position.y;
         jumpHeight = player.transform.position.y + player.jumpHeight;
         jumpUP = true;
         jumpDOWN = false;
+        player.inputManager.OnAttackPress += Attack;
     }
 
 
@@ -62,5 +65,11 @@ public class PlayerJumpState : PlayerState
     public override void OnStateExit()
     {
         base.OnStateExit();
+        player.anim.SetBool("jumping", false); 
+        player.inputManager.OnAttackPress -= Attack;
+    }
+    private void Attack()
+    {
+        Instantiate(player.bullet, player.firePos.position, player.transform.rotation);
     }
 }

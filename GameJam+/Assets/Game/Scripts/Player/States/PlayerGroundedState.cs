@@ -11,6 +11,7 @@ public class PlayerGroundedState : PlayerState
         base.OnStateEnter();
         player.currState = "Grounded";
         player.inputManager.OnJumpPress += Jump;
+        player.inputManager.OnAttackPress += Attack;
     }
 
     public override void OnStateFixedUpdate()
@@ -28,6 +29,8 @@ public class PlayerGroundedState : PlayerState
     {
         base.OnStateExit();
         player.rb.velocity = new Vector2(player.rb.velocity.x, 0f);  // stop player Y movement.
+        player.inputManager.OnJumpPress -= Jump;
+        player.inputManager.OnAttackPress -= Attack;
     }
 
     #region FUNCTIONS
@@ -37,6 +40,10 @@ public class PlayerGroundedState : PlayerState
         {
             stateMachine.ChangeState(new PlayerJumpState(player, stateMachine));
         }
+    }
+    private void Attack()
+    { 
+        Instantiate(player.bullet, player.firePos.position, player.transform.rotation); 
     }
     #endregion
 }

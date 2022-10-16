@@ -10,6 +10,9 @@ public class InputManager : Singleton<InputManager>
     public delegate void JumpPress();
     public event JumpPress OnJumpPress;
 
+
+    public delegate void AttackPress();
+    public event AttackPress OnAttackPress;
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -30,6 +33,7 @@ public class InputManager : Singleton<InputManager>
     private void Start()
     {
         playerControls.Keyboard.Jump.performed += ctx => Jump_performed(ctx);
+        playerControls.Keyboard.Attack.performed += ctx => Attack_performed(ctx);
     }
 
     public Vector2 GetMoveVector()
@@ -42,6 +46,13 @@ public class InputManager : Singleton<InputManager>
         if (OnJumpPress != null)
         {
             OnJumpPress();
+        }
+    }
+    private void Attack_performed(InputAction.CallbackContext context)
+    {
+        if (OnAttackPress != null)
+        {
+            OnAttackPress();
         }
     }
 }
