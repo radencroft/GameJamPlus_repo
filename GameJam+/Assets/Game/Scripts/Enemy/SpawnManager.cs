@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using UnityEngine.UI;
+using TMPro;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -12,11 +14,13 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private int EnemyNum;
     public int N;
     private float t;
+    [SerializeField] private TMP_Text CounterUI;
+    private int killCount;
 
     private void Start()
-    { 
-        SpawnEnemy();
+    {  
         t = 0f;
+        killCount = 0;
     }
     private void FixedUpdate()
     {
@@ -26,11 +30,14 @@ public class SpawnManager : MonoBehaviour
             if (e == null)
             {
                 enemiesOnScreen.Remove(e);
+                killCount++;
             }
         }
     }
     private void Update()
     {
+        CounterUI.text = killCount.ToString();
+
         if (enemiesOnScreen.Count < EnemyNum)
         {
             t += Time.deltaTime;

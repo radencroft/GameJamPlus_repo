@@ -70,6 +70,8 @@ public class PlayerJumpState : PlayerState
     }
     private void Attack()
     {
-        Instantiate(player.bullet, player.firePos.position, player.transform.rotation);
+        GameObject bullet = Instantiate(player.bullet, player.firePos.position, player.firePos.rotation);
+        Rigidbody2D bulletRB = bullet.GetComponent<Rigidbody2D>();
+        bulletRB.AddForce(player.firePos.up * bullet.GetComponent<Bullet>().speed, ForceMode2D.Impulse);
     }
 }
