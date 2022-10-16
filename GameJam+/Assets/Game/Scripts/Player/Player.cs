@@ -41,6 +41,16 @@ public class Player : MonoBehaviour
     public int health;
     public TMP_Text healthUI;
 
+    [Header("COOLDOWN")] 
+    public float  FCTimer;
+    [HideInInspector] public bool startFireCooldown;
+    [HideInInspector] public bool canFire;
+     
+    public float dashCooldownTime;
+    public float DCTimer;
+    [HideInInspector] public bool startDashCooldown;
+    [HideInInspector] public bool canDash;
+
     public void GenericMove()
     {
         float speed = ST;
@@ -65,5 +75,33 @@ public class Player : MonoBehaviour
         ceilingDetected = Physics2D.Raycast(col.bounds.center, Vector2.up, ceilingDistanceFromHead, whatIsCeiling);
         Debug.DrawRay(col.bounds.center, Vector2.up *  ceilingDistanceFromHead, Color.yellow);  // draw line for ceiling check in Scene View.
     }
-     
+
+    public void FireCooldown()
+    {
+        if (startFireCooldown)
+        {
+            canFire = false;
+            FCTimer -= Time.deltaTime;
+            if (FCTimer <= 0f)
+            {
+                canFire = true;
+                FCTimer = bullet.GetComponent<Bullet>().reloadSpeed;
+                startFireCooldown = false;
+            }
+        }
+    }
+    public void DashCooldown()
+    {
+        if (startDashCooldown)
+        {
+            canDash = false;
+            DCTimer -= Time.deltaTime;
+            if (DCTimer <= 0f)
+            {
+                canDash = true;
+                DCTimer = dashCooldownTime;
+                startDashCooldown = false;
+            }
+        }
+    }
 }

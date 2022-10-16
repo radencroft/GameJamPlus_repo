@@ -30,17 +30,14 @@ public class SpawnManager : MonoBehaviour
     } 
     private void Update()
     {
-        if (!dead)
+        N = enemiesOnScreen.Count;
+        foreach (var e in enemiesOnScreen)
         {
-            N = enemiesOnScreen.Count;
-            foreach (var e in enemiesOnScreen)
+            if (e == null)
             {
-                if (e == null)
-                {
-                    enemiesOnScreen.Remove(e);
-                    killCount += gapBtwYears;
-                    year += gapBtwYears;
-                }
+                enemiesOnScreen.Remove(e);
+                killCount += gapBtwYears;
+                year += gapBtwYears;
             }
         }
 
@@ -70,8 +67,7 @@ public class SpawnManager : MonoBehaviour
     }
 
     public void KillAllEnemies()
-    {
-        dead = true;
+    { 
         foreach (var e in enemiesOnScreen)
         {
             if (e != null)

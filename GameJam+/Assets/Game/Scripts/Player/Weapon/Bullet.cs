@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 { 
     public float speed;
     public int damage;
+    public float reloadSpeed;
 
     private void OnTriggerEnter2D(Collider2D other)
     {

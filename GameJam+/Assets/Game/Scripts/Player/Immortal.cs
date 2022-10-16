@@ -28,6 +28,12 @@ public class Immortal : Player
         facingRight = true;
         runningSound.enabled = false;
         health = HP;
+
+        FCTimer = bullet.GetComponent<Bullet>().reloadSpeed;
+        canFire = true;
+
+        DCTimer = dashCooldownTime;
+        canDash = true;
     }
 
     private void FixedUpdate()
@@ -51,6 +57,19 @@ public class Immortal : Player
         {
             runningSound.enabled = false;
         }
+
+        if (Input.GetMouseButtonDown(0) && canFire)
+        { 
+            audioManager.Play("Fire");
+        }
+
+        if (Input.GetMouseButtonDown(1) && canDash)
+        {
+            audioManager.Play("Dash");
+        }
+
+        DashCooldown();
+        FireCooldown();
     }
 
     private void LateUpdate()

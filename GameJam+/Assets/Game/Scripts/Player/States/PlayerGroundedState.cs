@@ -44,14 +44,21 @@ public class PlayerGroundedState : PlayerState
     }
     private void Attack()
     {
-        player.audioManager.Play("Fire");
-        GameObject bullet = Instantiate(player.bullet, player.firePos.position, player.firePos.rotation);
-        Rigidbody2D bulletRB = bullet.GetComponent<Rigidbody2D>();
-        bulletRB.AddForce(player.firePos.up * bullet.GetComponent<Bullet>().speed, ForceMode2D.Impulse);
+        if (player.canFire)
+        {
+            player.startFireCooldown = true;
+            GameObject bullet = Instantiate(player.bullet, player.firePos.position, player.firePos.rotation);
+            Rigidbody2D bulletRB = bullet.GetComponent<Rigidbody2D>();
+            bulletRB.AddForce(player.firePos.up * bullet.GetComponent<Bullet>().speed, ForceMode2D.Impulse);
+        }
     }
     private void Dash()
     {
-        stateMachine.ChangeState(new PlayerDashState(player, stateMachine));
+        if (player.canDash)
+        {
+            player.startDashCooldown = true;
+            stateMachine.ChangeState(new PlayerDashState(player, stateMachine));
+        }
     }
     #endregion
 }
