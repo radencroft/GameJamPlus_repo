@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string startingScreen;
     [SerializeField] private TMP_Text AgeCounter;
     [SerializeField] private GameObject deathScreen;
+    [SerializeField] private int levelUpNum;
 
     [Header("WEAPONS")] 
     public SpriteRenderer gunRenderer;
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
             Application.Quit();
         }
 
-        if (int.Parse(AgeCounter.text.Trim()) >= 10)
+        if (int.Parse(AgeCounter.text.Trim()) >= levelUpNum)
         { 
             gunRenderer.sprite = gunSprite;
             player.bullet = gunBullet;
