@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
     }
     public void Restart()
     {
+        GetComponent<SpawnManager>().dead = false;
+        GetComponent<SpawnManager>().enemiesOnScreen.Clear();
         Time.timeScale = 1f;
         player.health = player.HP;
         deathScreen.SetActive(false);

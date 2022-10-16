@@ -7,7 +7,7 @@ using TMPro;
 
 public class SpawnManager : MonoBehaviour
 {
-    private List<GameObject> enemiesOnScreen = new List<GameObject>();
+    public List<GameObject> enemiesOnScreen = new List<GameObject>();
     [SerializeField] private GameObject enemy;
     [SerializeField] private Transform spawnPos;
     [SerializeField] private float respawnTime;
@@ -20,28 +20,30 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private int gapBtwYears;
     private int year;
     private int killCount;
+    public bool dead;
 
     private void Start()
     {  
         t = 0f;
         killCount = 0;
         year = startYear;
-    }
-    private void FixedUpdate()
-    {
-        N = enemiesOnScreen.Count;
-        foreach (var e in enemiesOnScreen)
-        {
-            if (e == null)
-            {
-                enemiesOnScreen.Remove(e);
-                killCount += gapBtwYears;
-                year += gapBtwYears;
-            }
-        }
-    }
+    } 
     private void Update()
     {
+        if (!dead)
+        {
+            N = enemiesOnScreen.Count;
+            foreach (var e in enemiesOnScreen)
+            {
+                if (e == null)
+                {
+                    enemiesOnScreen.Remove(e);
+                    killCount += gapBtwYears;
+                    year += gapBtwYears;
+                }
+            }
+        }
+
         AgeCounter.text = killCount.ToString();
         YearCounter.text = year.ToString();
 
@@ -69,12 +71,12 @@ public class SpawnManager : MonoBehaviour
 
     public void KillAllEnemies()
     {
+        dead = true;
         foreach (var e in enemiesOnScreen)
         {
-            Destroy(e);
-            if (e == null)
+            if (e != null)
             {
-                enemiesOnScreen.Remove(e);
+                Destroy(e); 
             }
         }
         killCount = 0;
