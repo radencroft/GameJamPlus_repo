@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public AudioManager audioManager;
     [HideInInspector] public AudioSource runningSound;
 
+
     public string currState;
 
     [Header("MOVE STATS")]
@@ -63,5 +64,6 @@ public class Player : MonoBehaviour
     {
         ceilingDetected = Physics2D.Raycast(col.bounds.center, Vector2.up, ceilingDistanceFromHead, whatIsCeiling);
         Debug.DrawRay(col.bounds.center, Vector2.up *  ceilingDistanceFromHead, Color.yellow);  // draw line for ceiling check in Scene View.
-    } 
+    }
+     
 }

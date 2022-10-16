@@ -2395,8 +2395,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1574507941}
-  deathScreen: {fileID: 1724820044}
   startingScreen: RoomOne
+  AgeCounter: {fileID: 1218988496}
+  deathScreen: {fileID: 1724820044}
+  gunRenderer: {fileID: 1951709007}
+  gunSprite: {fileID: 7482667652216324306, guid: d76ae7eed5197614a808fb3daca3bb73, type: 3}
+  gunBullet: {fileID: 4730181913294436315, guid: 6c184a852f4c53f4a872cdb380667621, type: 3}
 --- !u!1 &875174774
 GameObject:
   m_ObjectHideFlags: 0
@@ -4102,7 +4106,7 @@ MonoBehaviour:
   firePos: {fileID: 875174775}
   dashSpeed: 150
   dashTime: 0.2
-  HP: 10
+  HP: 100
   health: 0
   healthUI: {fileID: 285947958}
 --- !u!50 &1574507942
@@ -4340,7 +4344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1724820045
 RectTransform:
   m_ObjectHideFlags: 0

@@ -72,7 +72,12 @@ public class SpawnManager : MonoBehaviour
         foreach (var e in enemiesOnScreen)
         {
             Destroy(e);
-            enemiesOnScreen.Remove(e);
+            if (e == null)
+            {
+                enemiesOnScreen.Remove(e);
+            }
         }
+        killCount = 0;
+        year = startYear;
     }
 }

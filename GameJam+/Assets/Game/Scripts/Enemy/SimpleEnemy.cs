@@ -23,14 +23,16 @@ public class SimpleEnemy : MonoBehaviour
             }
             else
             {
-                hit++;
+                hit += other.gameObject.GetComponent<Bullet>().damage;
             }
-        }
+        } 
+    }
 
+    private void OnTriggerStay2D(Collider2D other)
+    { 
         if (other.gameObject.tag == "Player")
         {
             other.GetComponent<Immortal>().health -= DamageToPlayer;
         }
     }
-
 }
