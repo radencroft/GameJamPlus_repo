@@ -24,5 +24,10 @@ public class Bullet : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        if (other.gameObject.layer == 6)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
